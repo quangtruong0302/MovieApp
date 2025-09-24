@@ -1,6 +1,6 @@
 import React from "react";
 
-const ActorInfo = ({ id, name, character, profile_path }) => {
+const ActorInfo = ({ name, character, profile_path }) => {
   return (
     <div className="border border-slate-300 shadow-sm rounded-lg">
       <img

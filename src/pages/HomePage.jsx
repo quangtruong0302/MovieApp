@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Header from "../components/Header";
 import FeatureMovie from "../components/FeatureMovie";
-import MediaList from "../components/MediaList/Index";
+
+import MediaList from "../components/MediaList";
 import { TRENDING_TABS, TOPRATED_TABS } from "../libs/constant";
 function HomePage() {
   return (
