@@ -1,15 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const PaginateIndicator = ({ movies, activeMovieId, setActiveMovieId }) => {
-  // useEffect(() => {
-  //   if (!movies || movies.length === 0) return;
-  //   const interval = setInterval(() => {
-  //     const currentIndex = movies.findIndex((m) => m.id === activeMovieId);
-  //     const nextIndex = (currentIndex + 1) % movies.length;
-  //     setActiveMovieId(movies[nextIndex].id);
-  //   }, 3000);
-  //   return () => clearInterval(interval);
-  // }, [movies, activeMovieId, setActiveMovieId]);
   return (
     <div className="absolute bottom-[10%] right-8">
       <ul className="flex gap-1">

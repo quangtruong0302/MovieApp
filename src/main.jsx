@@ -1,11 +1,19 @@
-import { Children, StrictMode } from "react";
+import { Children, lazy, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./pages/HomePage.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./pages/HomePage.jsx";
-import MovieDetail from "./pages/MovieDetail.jsx";
-import RootLayout from "./pages/RootLayout.jsx";
+import RootLayout from "@pages/RootLayout";
+import ModalProvider from "@context/ModalProvider";
+// import HomePage from "@pages/HomePage";
+// import MovieDetail from "@pages/MovieDetail";
+// import TVShowDetail from "@pages/TVShowDetail";
+// import PeopleDetail from "@pages/PeopleDetail";
+
+const MovieDetail = lazy(() => import("@pages/MovieDetail"));
+const TVShowDetail = lazy(() => import("@pages/TVShowDetail"));
+const PeopleDetail = lazy(() => import("@pages/PeopleDetail"));
+const HomePage = lazy(() => import("@pages/HomePage"));
+const SearchPage = lazy(() => import("@pages/SearchPage"));
 
 const router = createBrowserRouter([
   {
@@ -19,13 +27,36 @@ const router = createBrowserRouter([
         path: "/movie/:id",
         element: <MovieDetail />,
       },
+      {
+        path: "/tvshow/:id",
+        element: <TVShowDetail />,
+      },
+      {
+        path: "/people/:id",
+        element: <PeopleDetail />,
+        loader: async ({ params }) => {
+          const res = await fetch(
+            `https://api.themoviedb.org/3/person/${params.id}?append_to_response=combined_credits`,
+            {
+              headers: {
+                accept: "application/json",
+                Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+              },
+            }
+          );
+          return res;
+        },
+      },
+      {
+        path: "/search",
+        element: <SearchPage></SearchPage>,
+      },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    {/* <App /> */}
+  <ModalProvider>
     <RouterProvider router={router}></RouterProvider>
-  </StrictMode>
+  </ModalProvider>
 );
